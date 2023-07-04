@@ -16,7 +16,7 @@ ALLFILES     =	$(CHECKING) $(SOLVER) $(FORMULAFILES) $(PARSERFILES) $(UTILFILES)
 
 
 CC	    =   g++
-FLAG    = -I./  -I./minisat/  -D __STDC_LIMIT_MACROS -D __STDC_FORMAT_MACROS -fpermissive
+FLAG    = -I./  -I./minisat/  -D __STDC_LIMIT_MACROS -D __STDC_FORMAT_MACROS -fpermissive -isystem minisat -isystem ltlparser
 DEBUGFLAG   =	-D DEBUG -g -pg
 RELEASEFLAG = -O2
 
