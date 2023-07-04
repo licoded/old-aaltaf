@@ -83,6 +83,7 @@ ltlf_sat (int argc, char** argv)
   af = af->remove_wnext ();
   af = af->simplify ();
   af = af->split_next ();
+  cout << af->to_string () << endl;
   
   
   
