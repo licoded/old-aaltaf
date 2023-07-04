@@ -724,6 +724,12 @@ aalta_formula::init ()
       names.push_back ("U");
       names.push_back ("R");
       names.push_back ("Undefined");
+      // add [tT]ail, TAIL
+      const int id = names.size();
+      vector<string> tail_s_arr = {"tail", "Tail", "TAIL"};
+      names.push_back(tail_s_arr.front()); // only push "tail", to match the max_id
+      for (auto name : tail_s_arr)
+        ids.insert({name, id});
     }
 }
 
