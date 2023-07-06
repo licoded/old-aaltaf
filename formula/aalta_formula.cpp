@@ -639,21 +639,21 @@ aalta_formula::simplify_until (aalta_formula *l, aalta_formula *r)
   if (l_s->_op == False // False U a = a
       || r_s->_op == False // a U False = False
       || r_s->_op == True // a U True = True
-      || r_s->contain (All, Or, l_s) // a U (a | ...) = a | ...
-      || r_s->contain (Left, Until, l_s) // a U (a U b) = a U b
-      || r_s->contain (Right, Until, l_s) // a U (b U a) = b U a
-      || r_s->contain (Right, Release, l_s) // a U (b R a) = b R a
-      || l_s->contain (Right, Release, r_s) // (b R a) U a = a;
+      // || r_s->contain (All, Or, l_s) // a U (a | ...) = a | ...
+      // || r_s->contain (Left, Until, l_s) // a U (a U b) = a U b
+      // || r_s->contain (Right, Until, l_s) // a U (b U a) = b U a
+      // || r_s->contain (Right, Release, l_s) // a U (b R a) = b R a
+      // || l_s->contain (Right, Release, r_s) // (b R a) U a = a;
       )
     simp = r_s;
-  else if (l_s->contain (Left, Until, r_s)) // (a U b) U a = b U a
-    simp = aalta_formula (Until, l_s->_right, l_s->_left).simplify ();
-  else if (l_s->contain (Right, Until, r_s)) // (b U a) U a = b U a
-    simp = l_s;
-  else if (l_s->contain (Right, Next, r_s)) // X a U a = X a | a
-    simp = aalta_formula (Or, l_s, r_s).simplify ();
-  else if (l_s->_op == Next && r_s->_op == Next) // X a U X b = X ( a U b )
-    simp = aalta_formula (Next, NULL, aalta_formula (Until, l_s->_right, r_s->_right).simplify ()).simplify ();
+  // else if (l_s->contain (Left, Until, r_s)) // (a U b) U a = b U a
+  //   simp = aalta_formula (Until, l_s->_right, l_s->_left).simplify ();
+  // else if (l_s->contain (Right, Until, r_s)) // (b U a) U a = b U a
+  //   simp = l_s;
+  // else if (l_s->contain (Right, Next, r_s)) // X a U a = X a | a
+  //   simp = aalta_formula (Or, l_s, r_s).simplify ();
+  // else if (l_s->_op == Next && r_s->_op == Next) // X a U X b = X ( a U b )
+  //   simp = aalta_formula (Next, NULL, aalta_formula (Until, l_s->_right, r_s->_right).simplify ()).simplify ();
   else
     simp = aalta_formula (Until, l_s, r_s).unique ();
   return simp;
@@ -674,24 +674,24 @@ aalta_formula::simplify_release (aalta_formula *l, aalta_formula *r)
   if (l_s->_op == True // True R a = a
       || r_s->_op == False // a R False = False
       || r_s->_op == True // a R True = True
-      || r_s->contain (All, And, l_s) // a R (a & ...) = a & ...
-      || l_s->contain (All, Or, r_s) // (a | ...) R a = a
-      || r_s->contain (Left, Release, l_s) // a R (a R b) = a R b
-      || r_s->contain (Right, Release, l_s) // a R (b R a) = b R a
-      || r_s->contain (Right, Until, l_s) // a R (b U a) = b U a
-      || l_s->contain (All, Or, Right, Until, r_s) // (b U a | ... ) R a = a;
+      // || r_s->contain (All, And, l_s) // a R (a & ...) = a & ...
+      // || l_s->contain (All, Or, r_s) // (a | ...) R a = a
+      // || r_s->contain (Left, Release, l_s) // a R (a R b) = a R b
+      // || r_s->contain (Right, Release, l_s) // a R (b R a) = b R a
+      // || r_s->contain (Right, Until, l_s) // a R (b U a) = b U a
+      // || l_s->contain (All, Or, Right, Until, r_s) // (b U a | ... ) R a = a;
       )
     simp = r_s;
-  else if (l_s->contain (Left, Release, r_s)) // (a R b) R a = b R a
-    simp = aalta_formula (Release, l_s->_right, l_s->_left).simplify ();
-  else if (l_s->contain (Right, Release, r_s)) // (b R a) R a = b R a
-    simp = l_s;
-  else if (l_s->_op == Next && r_s->_op == Next) // X a R X b = X ( a R b )
-    simp = aalta_formula (Next, NULL, aalta_formula (Release, l_s->_right, r_s->_right).simplify ()).simplify ();
-  else if ((l_s->_op == Not && l_s->_right == r_s)
-           || (r_s->_op == Not && r_s->_right == l_s)) // !a R a = False R a
-    //@ TODO: 这里只处理了原子，是否扩展为普通公式？ AND 似乎最后没必要再simplify
-    simp = aalta_formula (Release, aalta_formula::FALSE (), r_s).simplify ();
+  // else if (l_s->contain (Left, Release, r_s)) // (a R b) R a = b R a
+  //   simp = aalta_formula (Release, l_s->_right, l_s->_left).simplify ();
+  // else if (l_s->contain (Right, Release, r_s)) // (b R a) R a = b R a
+  //   simp = l_s;
+  // else if (l_s->_op == Next && r_s->_op == Next) // X a R X b = X ( a R b )
+  //   simp = aalta_formula (Next, NULL, aalta_formula (Release, l_s->_right, r_s->_right).simplify ()).simplify ();
+  // else if ((l_s->_op == Not && l_s->_right == r_s)
+  //          || (r_s->_op == Not && r_s->_right == l_s)) // !a R a = False R a
+  //   //@ TODO: 这里只处理了原子，是否扩展为普通公式？ AND 似乎最后没必要再simplify
+  //   simp = aalta_formula (Release, aalta_formula::FALSE (), r_s).simplify ();
   else
     simp = aalta_formula (Release, l_s, r_s).unique ();
   //@ TODO: (b R (!a & ..) & ..) R a = False R a
