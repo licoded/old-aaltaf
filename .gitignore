@@ -1,4 +1,7 @@
-aaltaf
+aaltaf*
+.vscode/settings.json
 LTLf/
 cnf.dimacs*
 gmon.out
+tmp
+.depend
