@@ -66,7 +66,16 @@ pre-build:
 	mkdir -p tmp/util
 
 clean :
-	rm $(PROG) $(PROG)d $(OBJS) $(addprefix $(TARGET_DIR)/, $(MINISAT_TARGETS))
+	rm $(PROG) $(PROG)d $(OBJS) $(addprefix $(TARGET_DIR)/, $(MINISAT_TARGETS)) > /dev/null || true
+
+rebuild-debug:
+	make clean
+	make minisat_build
+	make maind
+
+rebuild-all:
+	make rebuild-debug
+	make main
 
 
 tmp/aaltasolver.o: aaltasolver.cpp aaltasolver.h minisat/core/Solver.h
