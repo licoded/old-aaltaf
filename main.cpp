@@ -44,19 +44,21 @@ ltlf_sat (int argc, char** argv)
 
 	const int MAX_VARIABLE_NUM = 40;
 
-	for(int i = 0; i < 10 && i <MAX_VARIABLE_NUM; i++)
+	for(int i = 0; i < 10 && i < MAX_VARIABLE_NUM; i++)
 	{
 		char s1[10]="p0";
-		s1[1] = i;
+		s1[1] = '0' + i;
+		std::cout << s1 << std::endl;
 		aalta_formula(s1).unique();
 		aalta_formula(aalta_formula::Not, nullptr, aalta_formula(s1).unique()).unique();  // set tail id to be 1
 		aalta_formula(aalta_formula::Next, nullptr, aalta_formula(s1).unique()).unique(); // set tail id to be 1
 	}
-	for(int i = 10; i < 100 && i <MAX_VARIABLE_NUM; i++)
+	for(int i = 10; i < 100 && i < MAX_VARIABLE_NUM; i++)
 	{
 		char s2[10]="p10";
-		s2[1] = i/10;
-		s2[2] = i%10;
+		s2[1] = '0' + i/10;
+		s2[2] = '0' + i%10;
+		std::cout << s2 << std::endl;
 		aalta_formula(s2).unique();
 		aalta_formula(aalta_formula::Not, nullptr, aalta_formula(s2).unique()).unique();  // set tail id to be 1
 		aalta_formula(aalta_formula::Next, nullptr, aalta_formula(s2).unique()).unique(); // set tail id to be 1
