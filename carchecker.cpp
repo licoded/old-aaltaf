@@ -146,9 +146,9 @@
 		 	return false;
 		
 		
-		 RES ret = check_with_heuristics ();
-		 if (ret != UNKNOW)
-		 	return (ret == SAT ? true : false);
+		//  RES ret = check_with_heuristics ();
+		//  if (ret != UNKNOW)
+		//  	return (ret == SAT ? true : false);
 		 
 		
 		 return car_check (to_check_);
@@ -338,6 +338,9 @@
 			if (evidence_ != NULL)
 			{
 				Transition *t = solver_->get_transition ();
+				std::cout << "++++\t f\t\t" << f->to_string() << std::endl;
+				std::cout << "++++\t label\t\t" << t->label()->to_string() << std::endl;
+				std::cout << "++++\t next\t\t" << t->next()->to_string() << std::endl;
 				assert (t != NULL);
 				evidence_->push (t->label ());
 				delete t;

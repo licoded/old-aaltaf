@@ -30,6 +30,17 @@ ltlf_sat (int argc, char** argv)
 	int input_count = 0;
 	bool blsc = false;
 	bool print_weak_until_free = false;
+
+	aalta_formula::TAIL(); // set tail id to be 1
+    aalta_formula(aalta_formula::Not, nullptr, aalta_formula::TAIL()).unique(); // set tail id to be 1
+    aalta_formula::FALSE(); // set FALSE id to be 2
+    aalta_formula::TRUE(); // set TRUE id to be 3
+    aalta_formula("a").unique();
+    aalta_formula(aalta_formula::Not, nullptr, aalta_formula("a").unique()).unique(); // set tail id to be 1
+    aalta_formula(aalta_formula::Next, nullptr, aalta_formula("a").unique()).unique(); // set tail id to be 1
+    aalta_formula("b").unique();
+    aalta_formula(aalta_formula::Not, nullptr, aalta_formula("b").unique()).unique(); // set tail id to be 1
+    aalta_formula(aalta_formula::Next, nullptr, aalta_formula("b").unique()).unique(); // set tail id to be 1
 	
 	for (int i = argc; i > 1; i --)
 	{
@@ -81,7 +92,7 @@ ltlf_sat (int argc, char** argv)
   af = af->nnf ();
 	af = af->add_tail ();
   af = af->remove_wnext ();
-  af = af->simplify ();
+//   af = af->simplify ();
   af = af->split_next ();
   cout << af->to_string () << endl;
   

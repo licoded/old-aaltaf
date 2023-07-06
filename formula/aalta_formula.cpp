@@ -1226,15 +1226,15 @@ aalta_formula::simplify ()
 
   switch (_op)
     {
-    case And: // &
-      _simp = aalta_formula::simplify_and (_left, _right);
-      break;
-    case Or: // |
-      _simp = aalta_formula::simplify_or (_left, _right);
-      break;
-    case Next: // X
-      _simp = aalta_formula::simplify_next (_right);
-      break;
+    // case And: // &
+    //   _simp = aalta_formula::simplify_and (_left, _right);
+    //   break;
+    // case Or: // |
+    //   _simp = aalta_formula::simplify_or (_left, _right);
+    //   break;
+    // case Next: // X
+    //   _simp = aalta_formula::simplify_next (_right);
+    //   break;
     case Until: // U
       _simp = aalta_formula::simplify_until (_left, _right);
       break;
