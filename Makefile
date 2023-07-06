@@ -10,7 +10,7 @@ CFLAG_INCLUDE_DIRS	=	-I ./ -I ./minisat
 CFLAG_nonconforming	=	-fpermissive
 CFLAG_ignore_Warn	=	-isystem minisat -isystem ltlparser
 DEBUGFLAGS			=	-D DEBUG -g -pg
-CFLAGS				=	-Wall $(CFLAG_INCLUDE_DIRS) $(CFLAG_nonconforming) $(CFLAG_ignore_Warn)
+CFLAGS				=	-Wall $(CFLAG_INCLUDE_DIRS) $(CFLAG_nonconforming) $(CFLAG_ignore_Warn) $(DEBUGFLAGS) 
 
 # ===	MINISAT		===
 MINISAT_SOLVER_FILE	=	minisat/core/Solver.cc
@@ -32,7 +32,7 @@ all: main
 maind:			$(OBJS) $(PARSER_FILES)
 	$(CC)	\
 		$(addprefix $(TARGET_DIR)/, $(MINISAT_TARGETS))		\
-		$^ $(CFLAGS) $(DEBUGFLAGS) -lz -o aaltafd
+		$^ $(CFLAGS) -lz -o aaltafd
 
 main:			$(SRCS) $(PARSER_FILES) $(FORMULA_FILE) $(MINISAT_SOLVER_FILE)
 	$(CC)	\
